@@ -3,7 +3,6 @@
 **A comprehensive platform for responsible vulnerability disclosure and security research**
 
 [![Security](https://img.shields.io/badge/Security-Bug%20Bounty-brightgreen)](https://github.com/Enclave-Software)
-[![Rewards](https://img.shields.io/badge/Rewards-Up%20to%20%245000-blue)](https://github.com/Enclave-Software)
 [![Status](https://img.shields.io/badge/Status-Active-success)](https://github.com/Enclave-Software)
 [![Contributors](https://img.shields.io/badge/Researchers-2-orange)](https://github.com/Enclave-Software)
 
