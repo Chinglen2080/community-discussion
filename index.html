@@ -6,6 +6,325 @@
     <title>Enclave Community Discussion Forum</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Update your bug-bounty-public-site.html form section to use the backend API -->
+
+<!-- Replace the existing form submission JavaScript with this updated version -->
+<script>
+    // Updated form submission to use backend API
+    document.getElementById('vulnerability-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const submitButton = document.querySelector('.btn--primary');
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<i data-feather="loader"></i> Submitting...';
+        submitButton.disabled = true;
+        
+        try {
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Convert FormData to JSON
+            const jsonData = {
+                researcherName: formData.get('researcher-name'),
+                researcherEmail: formData.get('researcher-email'),
+                vulnerabilityTitle: formData.get('vulnerability-title'),
+                vulnerabilityType: formData.get('vulnerability-type'),
+                severity: formData.get('severity'),
+                affectedComponent: formData.get('affected-component'),
+                description: formData.get('description'),
+                reproductionSteps: formData.get('reproduction-steps'),
+                impactAssessment: formData.get('impact'),
+                proofOfConcept: formData.get('proof-of-concept'),
+                suggestedFix: formData.get('suggested-fix'),
+                osEnvironment: formData.get('os-environment'),
+                appVersion: formData.get('app-version'),
+                browserInfo: formData.get('browser-info'),
+                responsibleDisclosure: formData.has('responsible-disclosure'),
+                testingAuthorization: formData.has('testing-authorization'),
+                hallOfFameConsent: formData.has('hall-of-fame-consent')
+            };
+            
+            // Submit to backend API
+            const response = await fetch('/api/vulnerabilities/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                // Hide form and show success message
+                this.style.display = 'none';
+                document.getElementById('submission-success').style.display = 'block';
+                document.getElementById('tracking-id').textContent = result.trackingId;
+                
+                // Update success message with backend data
+                const successDiv = document.getElementById('submission-success');
+                successDiv.innerHTML = `
+                    <div class="result-icon">✅</div>
+                    <h4>Vulnerability Report Submitted Successfully!</h4>
+                    <div style="background: #f0f9ff; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                        <p><strong>Tracking ID:</strong> ${result.trackingId}</p>
+                        <p><strong>Status:</strong> ${result.status}</p>
+                        <p><strong>Estimated Reward:</strong> $${result.estimatedReward.min} - $${result.estimatedReward.max}</p>
+                        <p><strong>Timeline:</strong> ${result.timeline}</p>
+                    </div>
+                    <p>You will receive a confirmation email within 24 hours with detailed next steps.</p>
+                    <p><strong>What happens next:</strong></p>
+                    <ul style="text-align: left; margin: 20px 0;">
+                        <li>Our security team will review your submission within 48 hours</li>
+                        <li>You'll receive status updates via email</li>
+                        <li>Critical vulnerabilities are prioritized for immediate review</li>
+                        <li>Rewards are processed after vulnerability confirmation and fix deployment</li>
+                    </ul>
+                `;
+            } else {
+                // Show error message
+                document.getElementById('submission-error').style.display = 'block';
+                document.getElementById('submission-error').innerHTML = `
+                    <div class="result-icon">❌</div>
+                    <h4>Submission Failed</h4>
+                    <p><strong>Error:</strong> ${result.error}</p>
+                    <p>Please check your input and try again. If the problem persists, contact security@enclave-messenger.com</p>
+                `;
+            }
+            
+        } catch (error) {
+            console.error('Submission error:', error);
+            
+            // Show network error
+            document.getElementById('submission-error').style.display = 'block';
+            document.getElementById('submission-error').innerHTML = `
+                <div class="result-icon">❌</div>
+                <h4>Network Error</h4>
+                <p>Unable to connect to the server. Please check your internet connection and try again.</p>
+                <p>If the problem persists, email us directly at <strong>security@enclave-messenger.com</strong></p>
+            `;
+        } finally {
+            // Reset button state
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+            feather.replace(); // Re-render feather icons
+        }
+    });
+
+    // Add real-time form validation
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('vulnerability-form');
+        const requiredFields = form.querySelectorAll('[required]');
+        
+        requiredFields.forEach(field => {
+            field.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            field.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    validateField(this);
+                }
+            });
+        });
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldName = field.name;
+            
+            // Remove previous error styling
+            field.classList.remove('error');
+            const existingError = field.parentNode.querySelector('.field-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            let errorMessage = '';
+            
+            // Validation rules
+            if (!value) {
+                errorMessage = 'This field is required';
+            } else if (fieldName === 'researcher-email' && !isValidEmail(value)) {
+                errorMessage = 'Please enter a valid email address';
+            } else if (fieldName === 'researcher-name' && value.length < 2) {
+                errorMessage = 'Name must be at least 2 characters long';
+            } else if (fieldName === 'vulnerability-title' && value.length < 10) {
+                errorMessage = 'Title must be at least 10 characters long';
+            } else if ((fieldName === 'description' || fieldName === 'reproduction-steps') && value.length < 50) {
+                errorMessage = 'Please provide more detailed information (minimum 50 characters)';
+            }
+            
+            // Check for potential security issues in input
+            if (value && containsSuspiciousPatterns(value)) {
+                errorMessage = 'Input contains invalid characters. Please remove quotes, scripts, or SQL commands.';
+            }
+            
+            if (errorMessage) {
+                field.classList.add('error');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error';
+                errorDiv.style.color = 'var(--color-error)';
+                errorDiv.style.fontSize = 'var(--font-size-xs)';
+                errorDiv.style.marginTop = 'var(--space-4)';
+                errorDiv.textContent = errorMessage;
+                field.parentNode.appendChild(errorDiv);
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        function containsSuspiciousPatterns(input) {
+            const suspiciousPatterns = [
+                /[<>]/g, // HTML tags
+                /['";]/g, // Quotes that could be injection attempts
+                /(script|javascript|vbscript)/gi, // Script tags
+                /(union|select|insert|delete|drop|update)/gi, // SQL commands
+                /(\-\-|\/\*|\*\/)/g // SQL comment patterns
+            ];
+            
+            return suspiciousPatterns.some(pattern => pattern.test(input));
+        }
+        
+        // Update form validation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .form-control.error {
+                border-color: var(--color-error);
+                box-shadow: 0 0 0 3px rgba(var(--color-red-500-rgb), 0.1);
+            }
+            
+            .field-error {
+                animation: shake 0.3s ease-in-out;
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            
+            .btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none !important;
+            }
+            
+            .loading-spinner {
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+
+    // Add connection status indicator
+    function checkAPIConnection() {
+        fetch('/api/admin/setup/init', { method: 'HEAD' })
+            .then(response => {
+                const statusIndicator = document.getElementById('api-status');
+                if (statusIndicator) {
+                    if (response.ok || response.status === 405) { // 405 is expected for HEAD request
+                        statusIndicator.textContent = '🟢 API Connected';
+                        statusIndicator.style.color = 'var(--color-success)';
+                    } else {
+                        statusIndicator.textContent = '🟡 API Issues';
+                        statusIndicator.style.color = 'var(--color-warning)';
+                    }
+                }
+            })
+            .catch(error => {
+                const statusIndicator = document.getElementById('api-status');
+                if (statusIndicator) {
+                    statusIndicator.textContent = '🔴 API Offline';
+                    statusIndicator.style.color = 'var(--color-error)';
+                }
+            });
+    }
+
+    // Check API status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add status indicator to page
+        const header = document.querySelector('.header-content');
+        if (header) {
+            const statusDiv = document.createElement('div');
+            statusDiv.innerHTML = '<small id="api-status" style="font-size: 12px;">Checking API...</small>';
+            header.appendChild(statusDiv);
+        }
+        
+        checkAPIConnection();
+        
+        // Recheck every 5 minutes
+        setInterval(checkAPIConnection, 300000);
+    });
+</script>
+
+<!-- Add this CSS for enhanced form styling -->
+<style>
+    /* Enhanced form validation styles */
+    .form-control {
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+        outline: none;
+    }
+    
+    .form-control.error {
+        border-color: var(--color-error);
+        box-shadow: 0 0 0 3px rgba(var(--color-red-500-rgb), 0.1);
+    }
+    
+    .field-error {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Loading state improvements */
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    
+    .btn--primary:disabled {
+        background: var(--color-gray-400);
+    }
+    
+    /* Success/Error message improvements */
+    .submission-result {
+        animation: fadeInUp 0.5s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* API status indicator */
+    #api-status {
+        font-family: var(--font-family-mono);
+        padding: 4px 8px;
+        border-radius: 4px;
+        background: rgba(var(--color-teal-500-rgb), 0.1);
+    }
+</style>
 </head>
 <body>
     <div class="app-container">
