@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enclave Community Discussion Forum</title>
+    <link rel="stylesheet" href="bug-bounty-style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>💬 Enclave Community</h1>
+                        <p>Discussion Forum</p>
+                    </div>
+                    <nav>
+                        <ul class="nav-tabs">
+                            <li><a href="#home" class="nav-tab active" onclick="showSection('home')">Home</a></li>
+                            <li><a href="#discussions" class="nav-tab" onclick="showSection('discussions')">Discussions</a></li>
+                            <li><a href="#new-topic" class="nav-tab" onclick="showSection('new-topic')">New Topic</a></li>
+                            <li><a href="#community" class="nav-tab" onclick="showSection('community')">Community</a></li>
+                            <li><a href="#guidelines" class="nav-tab" onclick="showSection('guidelines')">Guidelines</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Home Section -->
+                <section id="home" class="section active">
+                    <div class="hero">
+                        <h2>Welcome to Enclave Community</h2>
+                        <p>Join discussions about secure messaging, encryption, privacy, and the future of communication technology. Share ideas, ask questions, and connect with fellow privacy advocates.</p>
+                        <div class="cta-buttons">
+                            <a href="#new-topic" class="btn btn--primary" onclick="showSection('new-topic')">
+                                <i data-feather="plus-circle"></i>
+                                Start Discussion
+                            </a>
+                            <a href="#discussions" class="btn btn--secondary" onclick="showSection('discussions')">
+                                <i data-feather="message-circle"></i>
+                                Browse Topics
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="features-grid">
+                        <div class="feature-card" data-bg="bg-1">
+                            <div class="feature-icon">🔐</div>
+                            <h3>Encryption & Privacy</h3>
+                            <p>Discuss cryptographic protocols, privacy tools, and secure communication methods.</p>
+                        </div>
+                        <div class="feature-card" data-bg="bg-2">
+                            <div class="feature-icon">💡</div>
+                            <h3>Feature Requests</h3>
+                            <p>Suggest new features and improvements for Enclave Messenger.</p>
+                        </div>
+                        <div class="feature-card" data-bg="bg-3">
+                            <div class="feature-icon">🛠️</div>
+                            <h3>Technical Support</h3>
+                            <p>Get help with installation, configuration, and troubleshooting.</p>
+                        </div>
+                        <div class="feature-card" data-bg="bg-4">
+                            <div class="feature-icon">🌍</div>
+                            <h3>Open Source</h3>
+                            <p>Collaborate on development, contribute code, and discuss architecture.</p>
+                        </div>
+                    </div>
+
+                    <!-- Community Stats -->
+                    <div class="stats-section">
+                        <h3>Community Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h4>2,847</h4>
+                                <p>Community Members</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>156</h4>
+                                <p>Active Discussions</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>943</h4>
+                                <p>Total Posts</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>24/7</h4>
+                                <p>Community Support</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>Recent Discussions</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">💡</div>
+                                <div class="activity-content">
+                                    <h4><a href="#">Feature Request: Group Video Calls</a></h4>
+                                    <p>Discussion about implementing encrypted video conferencing capabilities</p>
+                                    <div class="activity-meta">
+                                        <span class="author">@alice_crypto</span>
+                                        <span class="time">2 hours ago</span>
+                                        <span class="replies">12 replies</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">🔐</div>
+                                <div class="activity-content">
+                                    <h4><a href="#">Post-Quantum Cryptography Discussion</a></h4>
+                                    <p>Exploring quantum-resistant algorithms for future-proofing encryption</p>
+                                    <div class="activity-meta">
+                                        <span class="author">@quantum_dev</span>
+                                        <span class="time">4 hours ago</span>
+                                        <span class="replies">8 replies</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">🛠️</div>
+                                <div class="activity-content">
+                                    <h4><a href="#">Installation Issues on ARM64 Linux</a></h4>
+                                    <p>Help needed with dependencies on ARM-based systems</p>
+                                    <div class="activity-meta">
+                                        <span class="author">@linux_user42</span>
+                                        <span class="time">6 hours ago</span>
+                                        <span class="replies">5 replies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Discussions Section -->
+                <section id="discussions" class="section">
+                    <div class="hero">
+                        <h2>Community Discussions</h2>
+                        <p>Browse active topics and join conversations about security, privacy, and technology.</p>
+                    </div>
+
+                    <div class="discussion-filters">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterDiscussions('all')">All Topics</button>
+                            <button class="filter-tab" onclick="filterDiscussions('encryption')">Encryption</button>
+                            <button class="filter-tab" onclick="filterDiscussions('features')">Features</button>
+                            <button class="filter-tab" onclick="filterDiscussions('support')">Support</button>
+                            <button class="filter-tab" onclick="filterDiscussions('development')">Development</button>
+                        </div>
+                        <div class="filter-sort">
+                            <select class="form-control">
+                                <option>Sort by Latest</option>
+                                <option>Sort by Popular</option>
+                                <option>Sort by Most Replies</option>
+                                <option>Sort by Oldest</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="discussions-list">
+                        <div class="discussion-item" data-category="features">
+                            <div class="discussion-icon">
+                                <span class="category-badge features">Feature</span>
+                            </div>
+                            <div class="discussion-content">
+                                <h3><a href="#">Mobile App for iOS and Android</a></h3>
+                                <p>Community discussion about developing native mobile applications with full encryption support...</p>
+                                <div class="discussion-meta">
+                                    <div class="meta-left">
+                                        <span class="author">Started by @mobile_dev</span>
+                                        <span class="time">Yesterday at 3:42 PM</span>
+                                    </div>
+                                    <div class="meta-right">
+                                        <span class="replies">23 replies</span>
+                                        <span class="views">456 views</span>
+                                        <span class="last-reply">Last reply by @crypto_alice</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="discussion-item" data-category="encryption">
+                            <div class="discussion-icon">
+                                <span class="category-badge encryption">Encryption</span>
+                            </div>
+                            <div class="discussion-content">
+                                <h3><a href="#">Implementing Perfect Forward Secrecy</a></h3>
+                                <p>Technical discussion about improving forward secrecy implementation and key rotation strategies...</p>
+                                <div class="discussion-meta">
+                                    <div class="meta-left">
+                                        <span class="author">Started by @security_expert</span>
+                                        <span class="time">2 days ago</span>
+                                    </div>
+                                    <div class="meta-right">
+                                        <span class="replies">18 replies</span>
+                                        <span class="views">789 views</span>
+                                        <span class="last-reply">Last reply by @crypto_dev</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="discussion-item" data-category="support">
+                            <div class="discussion-icon">
+                                <span class="category-badge support">Support</span>
+                            </div>
+                            <div class="discussion-content">
+                                <h3><a href="#">Network Connection Issues Behind Corporate Firewall</a></h3>
+                                <p>Help troubleshooting connection problems in restrictive network environments...</p>
+                                <div class="discussion-meta">
+                                    <div class="meta-left">
+                                        <span class="author">Started by @corp_user</span>
+                                        <span class="time">3 days ago</span>
+                                    </div>
+                                    <div class="meta-right">
+                                        <span class="replies">12 replies</span>
+                                        <span class="views">234 views</span>
+                                        <span class="last-reply">Last reply by @network_admin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="discussion-item" data-category="development">
+                            <div class="discussion-icon">
+                                <span class="category-badge development">Development</span>
+                            </div>
+                            <div class="discussion-content">
+                                <h3><a href="#">Contributing to the Codebase - Getting Started</a></h3>
+                                <p>Guide for new contributors: development setup, coding standards, and pull request process...</p>
+                                <div class="discussion-meta">
+                                    <div class="meta-left">
+                                        <span class="author">Started by @maintainer</span>
+                                        <span class="time">1 week ago</span>
+                                    </div>
+                                    <div class="meta-right">
+                                        <span class="replies">31 replies</span>
+                                        <span class="views">1.2k views</span>
+                                        <span class="last-reply">Last reply by @new_contributor</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- New Topic Section -->
+                <section id="new-topic" class="section">
+                    <div class="hero">
+                        <h2>Start a New Discussion</h2>
+                        <p>Share your ideas, ask questions, or start conversations with the Enclave community.</p>
+                    </div>
+
+                    <div class="new-topic-content">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>💬 Create Discussion Topic</h3>
+                                
+                                <form id="discussion-form" class="discussion-form">
+                                    <div class="form-group">
+                                        <label for="user-name" class="form-label">Your Name/Username *</label>
+                                        <input type="text" id="user-name" name="user-name" class="form-control" required placeholder="e.g., John Doe or @username">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="user-email" class="form-label">Email Address *</label>
+                                        <input type="email" id="user-email" name="user-email" class="form-control" required placeholder="your.email@example.com">
+                                        <small class="form-help">Your email won't be displayed publicly but is needed for notifications</small>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="topic-category" class="form-label">Discussion Category *</label>
+                                            <select id="topic-category" name="topic-category" class="form-control" required>
+                                                <option value="">Select category...</option>
+                                                <option value="general">General Discussion</option>
+                                                <option value="encryption">Encryption & Security</option>
+                                                <option value="features">Feature Requests</option>
+                                                <option value="support">Technical Support</option>
+                                                <option value="development">Development</option>
+                                                <option value="privacy">Privacy & Policy</option>
+                                                <option value="tutorials">Tutorials & Guides</option>
+                                                <option value="feedback">Feedback & Suggestions</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="topic-priority" class="form-label">Topic Priority</label>
+                                            <select id="topic-priority" name="topic-priority" class="form-control">
+                                                <option value="normal">Normal</option>
+                                                <option value="urgent">Urgent</option>
+                                                <option value="question">Question</option>
+                                                <option value="announcement">Announcement</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="topic-title" class="form-label">Discussion Title *</label>
+                                        <input type="text" id="topic-title" name="topic-title" class="form-control" required placeholder="Brief, descriptive title for your discussion">
+                                        <small class="form-help">Keep it clear and specific to help others find your topic</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="topic-description" class="form-label">Detailed Description *</label>
+                                        <textarea id="topic-description" name="topic-description" class="form-control" rows="6" required placeholder="Provide a detailed description of your topic, question, or idea...&#10;&#10;Include:&#10;- Context and background&#10;- Specific questions or issues&#10;- Any relevant technical details&#10;- What kind of input you're looking for"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="topic-tags" class="form-label">Tags (Optional)</label>
+                                        <input type="text" id="topic-tags" name="topic-tags" class="form-control" placeholder="e.g., encryption, mobile, bug, feature">
+                                        <small class="form-help">Comma-separated tags to help categorize your topic</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="system-info" class="form-label">System Information (if relevant)</label>
+                                        <textarea id="system-info" name="system-info" class="form-control" rows="3" placeholder="If this is a technical question or bug report, include:&#10;- Operating System&#10;- Enclave Messenger version&#10;- Any error messages"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="additional-context" class="form-label">Additional Context</label>
+                                        <textarea id="additional-context" name="additional-context" class="form-control" rows="3" placeholder="Any additional information, links, or context that might be helpful..."></textarea>
+                                    </div>
+
+                                    <div class="form-group checkbox-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="community-guidelines" name="community-guidelines" required>
+                                            <span class="checkmark"></span>
+                                            I agree to follow the community guidelines and maintain respectful discourse *
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group checkbox-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="email-notifications" name="email-notifications">
+                                            <span class="checkmark"></span>
+                                            Send me email notifications when others reply to my topic
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group checkbox-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="public-profile" name="public-profile">
+                                            <span class="checkmark"></span>
+                                            Display my name publicly with this post (otherwise will show as "Anonymous User")
+                                        </label>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn--primary btn--lg">
+                                            <i data-feather="send"></i>
+                                            Post Discussion
+                                        </button>
+                                        <button type="button" class="btn btn--secondary btn--lg" onclick="previewTopic()">
+                                            <i data-feather="eye"></i>
+                                            Preview
+                                        </button>
+                                        <button type="reset" class="btn btn--outline btn--lg">
+                                            <i data-feather="refresh-ccw"></i>
+                                            Clear Form
+                                        </button>
+                                    </div>
+
+                                    <div class="form-note">
+                                        <p><strong>Note:</strong> Your discussion will be reviewed by moderators before being published. You'll receive an email confirmation once it's approved and live.</p>
+                                    </div>
+                                </form>
+
+                                <div id="topic-success" class="submission-result success" style="display: none;">
+                                    <div class="result-icon">✅</div>
+                                    <h4>Discussion Posted Successfully!</h4>
+                                    <p>Your topic has been submitted and will be reviewed by our moderators. You'll receive an email confirmation once it's approved.</p>
+                                    <p><strong>Topic ID:</strong> <span id="topic-id"></span></p>
+                                </div>
+
+                                <div id="topic-error" class="submission-result error" style="display: none;">
+                                    <div class="result-icon">❌</div>
+                                    <h4>Submission Failed</h4>
+                                    <p>There was an error submitting your discussion. Please try again or contact support.</p>
+                                </div>
+
+                                <!-- Preview Modal -->
+                                <div id="preview-modal" class="modal" style="display: none;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3>Topic Preview</h3>
+                                            <button type="button" class="btn btn--outline btn--sm" onclick="closePreview()">
+                                                <i data-feather="x"></i>
+                                                Close
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" id="preview-content">
+                                            <!-- Preview content will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>💡 Posting Tips</h3>
+                                <ul class="tips-list">
+                                    <li><strong>Be specific:</strong> Use clear, descriptive titles that explain what you're discussing</li>
+                                    <li><strong>Provide context:</strong> Include background information to help others understand</li>
+                                    <li><strong>Stay on topic:</strong> Keep discussions focused and relevant to the category</li>
+                                    <li><strong>Be respectful:</strong> Maintain a professional and courteous tone</li>
+                                    <li><strong>Search first:</strong> Check if your topic has already been discussed</li>
+                                    <li><strong>Use formatting:</strong> Break up long posts with paragraphs and bullet points</li>
+                                </ul>
+
+                                <div class="contact-info">
+                                    <h4>Need Help?</h4>
+                                    <p>Questions about posting or community guidelines?</p>
+                                    <a href="mailto:community@enclave-messenger.com" class="contact-email">
+                                        <i data-feather="help-circle"></i>
+                                        community@enclave-messenger.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Community Section -->
+                <section id="community" class="section">
+                    <div class="hero">
+                        <h2>Our Community</h2>
+                        <p>Meet the members, moderators, and contributors who make the Enclave community vibrant and helpful.</p>
+                    </div>
+
+                    <div class="community-content">
+                        <div class="community-stats">
+                            <h3>📊 Community Overview</h3>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <h4>2,847</h4>
+                                    <p>Total Members</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>342</h4>
+                                    <p>Active This Month</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>67</h4>
+                                    <p>Countries</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>4.8★</h4>
+                                    <p>Community Rating</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="top-contributors">
+                            <h3>🏆 Top Contributors</h3>
+                            <div class="contributors-grid">
+                                <div class="contributor-card">
+                                    <div class="contributor-avatar">AC</div>
+                                    <div class="contributor-info">
+                                        <h4>@alice_crypto</h4>
+                                        <p>Encryption Expert</p>
+                                        <div class="contributor-stats">
+                                            <span>127 posts</span>
+                                            <span>89% helpful</span>
+                                        </div>
+                                    </div>
+                                    <div class="contributor-badge">🥇</div>
+                                </div>
+
+                                <div class="contributor-card">
+                                    <div class="contributor-avatar">MD</div>
+                                    <div class="contributor-info">
+                                        <h4>@mobile_dev</h4>
+                                        <p>Mobile Developer</p>
+                                        <div class="contributor-stats">
+                                            <span>98 posts</span>
+                                            <span>92% helpful</span>
+                                        </div>
+                                    </div>
+                                    <div class="contributor-badge">🥈</div>
+                                </div>
+
+                                <div class="contributor-card">
+                                    <div class="contributor-avatar">QD</div>
+                                    <div class="contributor-info">
+                                        <h4>@quantum_dev</h4>
+                                        <p>Security Researcher</p>
+                                        <div class="contributor-stats">
+                                            <span>76 posts</span>
+                                            <span>95% helpful</span>
+                                        </div>
+                                    </div>
+                                    <div class="contributor-badge">🥉</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="moderator-team">
+                            <h3>👥 Moderator Team</h3>
+                            <div class="moderators-list">
+                                <div class="moderator-item">
+                                    <div class="moderator-info">
+                                        <h4>@maintainer <span class="mod-badge">Lead Moderator</span></h4>
+                                        <p>Project maintainer and community lead. Handles development discussions and technical questions.</p>
+                                    </div>
+                                </div>
+                                <div class="moderator-item">
+                                    <div class="moderator-info">
+                                        <h4>@security_mod <span class="mod-badge">Security Moderator</span></h4>
+                                        <p>Oversees encryption and security-related discussions. Expert in cryptographic protocols.</p>
+                                    </div>
+                                </div>
+                                <div class="moderator-item">
+                                    <div class="moderator-info">
+                                        <h4>@community_helper <span class="mod-badge">Community Moderator</span></h4>
+                                        <p>Helps with general questions and maintains community guidelines. First point of contact for new members.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="community-resources">
+                            <h3>📚 Community Resources</h3>
+                            <div class="resources-grid">
+                                <div class="resource-item">
+                                    <div class="resource-icon">📖</div>
+                                    <h4>Documentation Wiki</h4>
+                                    <p>Community-maintained documentation and tutorials</p>
+                                    <a href="#" class="resource-link">Visit Wiki</a>
+                                </div>
+                                <div class="resource-item">
+                                    <div class="resource-icon">💬</div>
+                                    <h4>Real-time Chat</h4>
+                                    <p>Join our encrypted community chat room</p>
+                                    <a href="#" class="resource-link">Join Chat</a>
+                                </div>
+                                <div class="resource-item">
+                                    <div class="resource-icon">📅</div>
+                                    <h4>Events Calendar</h4>
+                                    <p>Community meetups and development calls</p>
+                                    <a href="#" class="resource-link">View Events</a>
+                                </div>
+                                <div class="resource-item">
+                                    <div class="resource-icon">🎯</div>
+                                    <h4>Project Roadmap</h4>
+                                    <p>See what's planned for future releases</p>
+                                    <a href="#" class="resource-link">View Roadmap</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Guidelines Section -->
+                <section id="guidelines" class="section">
+                    <div class="hero">
+                        <h2>Community Guidelines</h2>
+                        <p>Please follow these guidelines to maintain a welcoming, productive, and safe environment for everyone.</p>
+                    </div>
+
+                    <div class="guidelines-content">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>✅ Community Standards</h3>
+                                <div class="guidelines-list">
+                                    <div class="guideline-item">
+                                        <h4>🤝 Be Respectful</h4>
+                                        <ul>
+                                            <li>Treat all community members with respect and courtesy</li>
+                                            <li>Avoid personal attacks, harassment, or discriminatory language</li>
+                                            <li>Respect different opinions and experience levels</li>
+                                            <li>Use constructive criticism rather than negative comments</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="guideline-item">
+                                        <h4>💬 Stay On Topic</h4>
+                                        <ul>
+                                            <li>Keep discussions relevant to the forum category</li>
+                                            <li>Use appropriate titles that describe your topic</li>
+                                            <li>Don't hijack threads with unrelated topics</li>
+                                            <li>Search before posting to avoid duplicates</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="guideline-item">
+                                        <h4>🔒 Privacy & Security</h4>
+                                        <ul>
+                                            <li>Don't share personal information publicly</li>
+                                            <li>Report security vulnerabilities privately first</li>
+                                            <li>Respect others' privacy and confidentiality</li>
+                                            <li>Use secure channels for sensitive discussions</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="guideline-item">
+                                        <h4>📝 Quality Content</h4>
+                                        <ul>
+                                            <li>Provide clear, detailed posts with proper context</li>
+                                            <li>Use proper formatting and grammar when possible</li>
+                                            <li>Include relevant technical details for support requests</li>
+                                            <li>Contribute constructive and helpful responses</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>❌ Prohibited Content</h3>
+                                <ul class="prohibited-list">
+                                    <li>Spam, advertisements, or self-promotion without value</li>
+                                    <li>Harassment, threats, or abusive behavior</li>
+                                    <li>Illegal content or activities</li>
+                                    <li>Malicious software or security exploits</li>
+                                    <li>Piracy or copyright infringement</li>
+                                    <li>Political discussions unrelated to privacy/security</li>
+                                    <li>Doxxing or sharing others' private information</li>
+                                    <li>Trolling or deliberately disruptive behavior</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>⚖️ Moderation Policy</h3>
+                                <div class="moderation-steps">
+                                    <div class="moderation-item">
+                                        <h4>1. Community Self-Moderation</h4>
+                                        <p>Members are encouraged to help maintain quality by providing helpful feedback and reporting issues.</p>
+                                    </div>
+                                    <div class="moderation-item">
+                                        <h4>2. Moderator Review</h4>
+                                        <p>Our volunteer moderators review reported content and take appropriate action based on guidelines.</p>
+                                    </div>
+                                    <div class="moderation-item">
+                                        <h4>3. Progressive Actions</h4>
+                                        <ul>
+                                            <li><strong>Warning:</strong> First offense - friendly reminder of guidelines</li>
+                                            <li><strong>Temporary Restriction:</strong> Repeated violations - limited posting ability</li>
+                                            <li><strong>Suspension:</strong> Serious violations - temporary ban from community</li>
+                                            <li><strong>Permanent Ban:</strong> Severe or repeated violations after warnings</li>
+                                        </ul>
+                                    </div>
+                                    <div class="moderation-item">
+                                        <h4>4. Appeals Process</h4>
+                                        <p>Contact <strong>community@enclave-messenger.com</strong> if you believe a moderation action was taken in error.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>📞 Contact & Reporting</h3>
+                                <div class="contact-options">
+                                    <div class="contact-option">
+                                        <h4>🚨 Report Violations</h4>
+                                        <p>Use the report button on posts or email: <strong>abuse@enclave-messenger.com</strong></p>
+                                    </div>
+                                    <div class="contact-option">
+                                        <h4>💬 Community Support</h4>
+                                        <p>General questions: <strong>community@enclave-messenger.com</strong></p>
+                                    </div>
+                                    <div class="contact-option">
+                                        <h4>🔒 Security Issues</h4>
+                                        <p>Security vulnerabilities: <strong>security@enclave-messenger.com</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>💬 Enclave Community</h4>
+                        <p>Discussion Forum</p>
+                        <p>Connecting privacy advocates worldwide</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="#new-topic">Start Discussion</a></li>
+                            <li><a href="#discussions">Browse Topics</a></li>
+                            <li><a href="#community">Member Directory</a></li>
+                            <li><a href="#guidelines">Guidelines</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://github.com/Enclave-Software">GitHub</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="mailto:community@enclave-messenger.com">Contact</a></li>
+                            <li><a href="#">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <blockquote>
+                            "The best way to find out if you can trust somebody is to trust them."
+                            <cite>- Ernest Hemingway</cite>
+                        </blockquote>
+                        <p>Join discussions about privacy, security, and the future of communication.</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Enclave Software. Community Forum. Share ideas • Ask questions • Build together</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function filterDiscussions(category) {
+            const items = document.querySelectorAll('.discussion-item');
+            const tabs = document.querySelectorAll('.filter-tab');
+            
+            // Update active tab
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function previewTopic() {
+            const title = document.getElementById('topic-title').value;
+            const description = document.getElementById('topic-description').value;
+            const category = document.getElementById('topic-category').value;
+            const name = document.getElementById('user-name').value;
+            const tags = document.getElementById('topic-tags').value;
+            
+            if (!title || !description) {
+                alert('Please fill in the title and description to preview.');
+                return;
+            }
+            
+            const previewContent = `
+                <div class="discussion-item">
+                    <div class="discussion-icon">
+                        <span class="category-badge ${category}">${category.charAt(0).toUpperCase() + category.slice(1)}</span>
+                    </div>
+                    <div class="discussion-content">
+                        <h3>${title}</h3>
+                        <p>${description.substring(0, 200)}${description.length > 200 ? '...' : ''}</p>
+                        <div class="discussion-meta">
+                            <div class="meta-left">
+                                <span class="author">Started by ${name || 'Anonymous User'}</span>
+                                <span class="time">Just now</span>
+                            </div>
+                            <div class="meta-right">
+                                <span class="replies">0 replies</span>
+                                <span class="views">0 views</span>
+                            </div>
+                        </div>
+                        ${tags ? `<div class="topic-tags">${tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}</div>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('preview-content').innerHTML = previewContent;
+            document.getElementById('preview-modal').style.display = 'block';
+        }
+
+        function closePreview() {
+            document.getElementById('preview-modal').style.display = 'none';
+        }
+
+        // Form submission handling
+        document.getElementById('discussion-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const formData = new FormData(this);
+            const topicId = 'TOPIC-' + Date.now().toString(36).toUpperCase();
+            
+            // Hide form and show success message
+            this.style.display = 'none';
+            document.getElementById('topic-success').style.display = 'block';
+            document.getElementById('topic-id').textContent = topicId;
+            
+            console.log('Discussion submitted with data:', Object.fromEntries(formData));
+        });
+
+        // Initialize feather icons
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
+</body>
+</html>
